@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol ncImageSliderScrollViewDelegate<UIScrollViewDelegate>
+@optional
 - (void)sliderImageUpdatedToImageNumber:(NSInteger)imageSequenceNumber;
 @end
 

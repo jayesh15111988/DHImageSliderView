@@ -82,8 +82,8 @@
             self.backArrowImage = @"btn_caret_white_left_horizontal.png";
             self.nextArrowImage = @"btn_caret_white_right_horizontal.png";
         }
-        self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake (30, (self.frameHeight / 2) - 33, 20, 33)];
-        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake (self.frameHeight - 50, (self.frameHeight / 2) - 33, 20, 33)];
+        self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake (30, (self.frameHeight / 2) - 17, 20, 33)];
+        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake (self.frameHeight - 50, (self.frameHeight / 2) - 17, 20, 33)];
     }
 
     [self.backArrow setBackgroundImage:[UIImage imageNamed:self.backArrowImage] forState:UIControlStateNormal];
@@ -94,7 +94,6 @@
 
     [self addSubview:self.frontArrow];
     [self addSubview:self.backArrow];
-    
 }
 
 - (IBAction)showPreviousImage:(id)sender {
@@ -107,7 +106,13 @@
 
         [self makeTransitionToOffset:self.lengthOfDesiredImageDimension * (self.numberOfImagesOnSliderView - 1)];
     }
-    [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
+
+    if ([self.delegate respondsToSelector:@selector (sliderImageUpdatedToImageNumber:)]) {
+        [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
+    } else {
+        NSLog (@"NO Delegate setup for protocol sliderImageUpdatedToImageNumber"
+               @"please implement delegate protocol in the method you are calling this class from ");
+    }
 }
 
 - (IBAction)showNextImage:(id)sender {
@@ -120,7 +125,12 @@
         [self makeTransitionToOffset:0.0];
     }
 
-    [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
+    if ([self.delegate respondsToSelector:@selector (sliderImageUpdatedToImageNumber:)]) {
+        [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
+    } else {
+        NSLog (@"NO Delegate setup for protocol sliderImageUpdatedToImageNumber"
+               @"please implement delegate protocol in the method you are calling this class from ");
+    }
 }
 
 - (void)adjustToCalculatedOffset {
