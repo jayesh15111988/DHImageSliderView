@@ -29,7 +29,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray* sliderImagesCollection;
 @property (nonatomic, assign) NSInteger currentSlideNumber;
 
-//Which direction view should scroll?
+//Which direction view should scroll? - Vertical or Horizontal
 @property (nonatomic, assign) SlideDirection imageSlideDirection;
 
 //What happens when user clicks back and next buttons on slider
@@ -39,7 +39,7 @@ typedef enum {
 
 - (void)getAdjustedScrollViewXPositionForOffset;
 - (void)adjustToCalculatedOffset;
-- (void)slideToImageWithSequence:(NSInteger)imageSequence; //Sequence ranges from 0 to size-1
+- (void)slideToImageWithSequence:(NSInteger)imageSequence; //Sequence ranges from 0 to max-1
 
 - (void)startAutoSlideShowWithInterval:(NSTimeInterval)autoSlideShowInterval;
 - (void)stopAutoSlideShow;

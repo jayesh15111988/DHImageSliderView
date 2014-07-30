@@ -28,7 +28,10 @@
 
 - (void)initWithImages {
 
+    //These are collection of images given to the view
     self.imagesCollection = [NSMutableArray array];
+
+    //Set offset to origin
     self.offsetToAdjustImageSliderTo = 0.0;
 
     //Default duration  - Could be changed programmatically
@@ -36,9 +39,13 @@
     self.frameWidth = self.frame.size.width;
     self.frameHeight = self.frame.size.height;
 
+    //What should be direction of image scroll?
     self.isVerticalSliding = (self.imageSlideDirection == Vertical);
 
+    //Image dimension offset each time view is scrolled
     self.lengthOfDesiredImageDimension = (self.isVerticalSliding) ? self.frame.size.height : self.frame.size.width;
+
+    //Original position of an image
     float positionOfImage = 0.0f;
 
     //Add input images to scroll view one by one
@@ -46,6 +53,8 @@
 
         UIImageView* imageViewToAddToSliderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:individualSliderImage]];
         [imageViewToAddToSliderView sizeToFit];
+
+        //Horizontal bouncing - No for vertical scrolling and vice versa
 
         self.alwaysBounceHorizontal = !self.isVerticalSliding;
         self.alwaysBounceVertical = self.isVerticalSliding;
@@ -60,12 +69,15 @@
         }
         positionOfImage += self.lengthOfDesiredImageDimension; // Adding some gutter between image if possible putting 0.0 for time being
 
-        self.contentSize = imageViewToAddToSliderView.frame.size;
+        //  self.contentSize = imageViewToAddToSliderView.frame.size;
 
         [self addSubview:imageViewToAddToSliderView];
     }
 
+    //Set appropriate content size to allow smooth scrolling between max and min images
     self.contentSize = self.isVerticalSliding ? CGSizeMake (0, self.numberOfImagesOnSliderView * self.frameHeight) : CGSizeMake (self.numberOfImagesOnSliderView * self.frameWidth, 0);
+
+    //Customzing next and previous images arrows on screen. If none given, takes default images from project source
 
     if (self.isVerticalSliding) {
 
@@ -98,15 +110,15 @@
 
 - (IBAction)showPreviousImage:(id)sender {
 
-    //If only not very first image
     if (self.offsetToAdjustImageSliderTo) {
-
+        //Image other than first one
         [self makeTransitionToOffset:self.offsetToAdjustImageSliderTo - self.lengthOfDesiredImageDimension];
     } else {
-
+        //If this is very first image and we want to go to previous image. In this case we will scroll to last image on the view
         [self makeTransitionToOffset:self.lengthOfDesiredImageDimension * (self.numberOfImagesOnSliderView - 1)];
     }
 
+    //Make sure you setup delegate in case want to update main view UI on image slide event
     if ([self.delegate respondsToSelector:@selector (sliderImageUpdatedToImageNumber:)]) {
         [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
     } else {
@@ -118,13 +130,14 @@
 - (IBAction)showNextImage:(id)sender {
 
     if (self.offsetToAdjustImageSliderTo < ((self.numberOfImagesOnSliderView - 1) * self.lengthOfDesiredImageDimension)) {
-
+        //Any image other than last one on the view
         [self makeTransitionToOffset:self.offsetToAdjustImageSliderTo + self.lengthOfDesiredImageDimension];
     } else {
-
+        //If this is very last image and we want to go to next image. In this case we will scroll to first image on the view
         [self makeTransitionToOffset:0.0];
     }
 
+    //Make sure you setup delegate in case want to update main view UI on image slide event
     if ([self.delegate respondsToSelector:@selector (sliderImageUpdatedToImageNumber:)]) {
         [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
     } else {
@@ -134,22 +147,18 @@
 }
 
 - (void)adjustToCalculatedOffset {
-
+    //Adjust image so that it will show full single image instead of two partial images on the screen
     [self makeTransitionToOffset:self.offsetToAdjustImageSliderTo];
 }
 
 - (void)slideToImageWithSequence:(NSInteger)imageSequence {
-
+    //Manually sliding images. Range from 0 to max-1
     [self makeTransitionToOffset:self.lengthOfDesiredImageDimension * imageSequence];
 }
 - (void)getAdjustedScrollViewXPositionForOffset {
 
-    //      self.contentOffset=CGPointMake(self.contentOffset.x, 0);
     self.currentSlideNumber = (NSInteger)round (((self.isVerticalSliding) ? self.contentOffset.y : self.contentOffset.x) / self.lengthOfDesiredImageDimension);
     self.offsetToAdjustImageSliderTo = self.currentSlideNumber * self.lengthOfDesiredImageDimension;
-    //self.contentOffset.y = 0.0;
-
-    //    NSLog (@"%f adjusted y offset for an image", self.contentOffset.y);
 
     if (self.isVerticalSliding) {
         self.backArrow.frame = CGRectMake (self.backArrow.frame.origin.x, self.contentOffset.y + 20, 33, 20);
@@ -160,10 +169,7 @@
     }
 }
 
-//X only cause we are sliding it down horizontally - TO DO in future - make it supportive for vertical sliding too
-- (void)makeTransitionToOffset:(float)offsetValue {
-
-    //    NSLog (@"Making transition to offset %f", self.contentOffset.y);
+- (void)makeTransitionToOffset:(float)offsetSlideValue {
 
     [UIView transitionWithView:nil
                       duration:self.slideDuration
@@ -171,19 +177,26 @@
                     animations:^{
                         
                 
-                        self.contentOffset =self.isVerticalSliding? CGPointMake(0,offsetValue):CGPointMake(offsetValue,0);
+                        self.contentOffset =self.isVerticalSliding? CGPointMake(0,offsetSlideValue):CGPointMake(offsetSlideValue,0);
                     }
                     completion:NULL];
 }
 
+//For auto slide show
 - (void)startAutoSlideShowWithInterval:(NSTimeInterval)autoSlideShowInterval {
 
-    self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:autoSlideShowInterval target:self selector:@selector (showNextImage:) userInfo:nil repeats:YES];
+    if (![self.pulseTimer isValid]) {
+        self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:autoSlideShowInterval target:self selector:@selector (showNextImage:) userInfo:nil repeats:YES];
 
-    [self.pulseTimer fire];
+        [self.pulseTimer fire];
+    }
 }
+
+//Stop the auto slide show on the screen
 - (void)stopAutoSlideShow {
-    [self.pulseTimer invalidate];
+    if ([self.pulseTimer isValid]) {
+        [self.pulseTimer invalidate];
+    }
 }
 
 @end
