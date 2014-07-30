@@ -207,7 +207,6 @@
 - (IBAction)bulletButtonPressed:(UIButton*)sender {
 
     [self updateBulletPointsWithSelectedButton:sender];
-
     [self slideToImageWithSequence:sender.tag - 1];
 }
 
