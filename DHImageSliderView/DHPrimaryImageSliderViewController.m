@@ -60,7 +60,7 @@
     self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
     self.imageSliderScrollView.slideDuration = 0.5f;
 
-    self.imageSliderScrollView.imageSlideDirection = Vertical;
+    self.imageSliderScrollView.imageSlideDirection = Default;
 
     //Prevent scroll view from sliding itself to the bottom. Happens only in horizontal scrolling
 
