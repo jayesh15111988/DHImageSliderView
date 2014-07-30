@@ -28,6 +28,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.imageSliderScrollView.contentOffset = CGPointMake (0, 0);
 }
 
 - (void)addBulletsViewOnScreen {
@@ -50,14 +51,22 @@
 - (void)setupSliderImageView {
 
     //In here setup your images - For time being, images are fixed in position on screen. You may not move them
-    self.imageSliderScrollView.backArrowImage = @"btn_caret_white_left.png";
-    self.imageSliderScrollView.nextArrowImage = @"btn_caret_white_right.png";
 
     //This is necessary in case user manually updated slider images and then we need to update one of the bullet points on the screen which resides in completely different class
 
     self.imageSliderScrollView.delegate = self;
     self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
     self.imageSliderScrollView.slideDuration = 0.5f;
+
+    self.imageSliderScrollView.imageSlideDirection = Default;
+
+    //Prevent scroll view from sliding itself to the bottom. Happens only in horizontal scrolling
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    //You may do it - If not it will just grab default images from project source.
+
+    //          self.imageSliderScrollView.backArrowImage = @"btn_caret_white_left_horizontal.png";
+    //          self.imageSliderScrollView.nextArrowImage = @"btn_caret_white_right_horizontal.png";
 
     NSInteger numberOfTotalImages = self.imageSliderScrollView.numberOfImagesOnSliderView;
 
@@ -84,6 +93,7 @@
 #pragma scrollview delegate methods
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     //Call this method when scroll view gets scrolled each time
+
     [self.imageSliderScrollView getAdjustedScrollViewXPositionForOffset];
 }
 
@@ -98,7 +108,7 @@
 
 - (IBAction)startSlideShowPressed:(id)sender {
     //Auto scroll of a slider view
-    [self.imageSliderScrollView startAutoSlideShowWithInterval:AUTO_SLIDER_TIME_INTERVAL];
+    [self.imageSliderScrollView startAutoSlideShowWithInterval:(AUTO_SLIDER_TIME_INTERVAL > self.imageSliderScrollView.slideDuration) ? AUTO_SLIDER_TIME_INTERVAL : self.imageSliderScrollView.slideDuration];
 }
 
 - (IBAction)stopSlideShow:(id)sender {
