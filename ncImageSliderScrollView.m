@@ -83,7 +83,7 @@
             self.nextArrowImage = @"btn_caret_white_right_horizontal.png";
         }
         self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake (30, (self.frameHeight / 2) - 17, 20, 33)];
-        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake (self.frameHeight - 50, (self.frameHeight / 2) - 17, 20, 33)];
+        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake (self.frameWidth - 50, (self.frameHeight / 2) - 17, 20, 33)];
     }
 
     [self.backArrow setBackgroundImage:[UIImage imageNamed:self.backArrowImage] forState:UIControlStateNormal];

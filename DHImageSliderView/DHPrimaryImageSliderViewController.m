@@ -22,8 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     [self setupSliderImageView];
     [self addBulletsViewOnScreen];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -58,10 +60,9 @@
     self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
     self.imageSliderScrollView.slideDuration = 0.5f;
 
-    self.imageSliderScrollView.imageSlideDirection = Default;
+    self.imageSliderScrollView.imageSlideDirection = Vertical;
 
     //Prevent scroll view from sliding itself to the bottom. Happens only in horizontal scrolling
-    self.automaticallyAdjustsScrollViewInsets = NO;
 
     //You may do it - If not it will just grab default images from project source.
 
