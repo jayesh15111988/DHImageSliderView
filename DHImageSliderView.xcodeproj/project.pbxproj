@@ -282,8 +282,10 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>CB0B9AE21988455900A31743</string>
-				<string>CB0B9ADE198843CC00A31743</string>
+				<string>CB0B9AE31988457900A31743</string>
+				<string>CB0B9AE41988457900A31743</string>
+				<string>CB0B9ADF198843ED00A31743</string>
+				<string>CB0B9AE0198843ED00A31743</string>
 				<string>CB0B9AB51988431600A31743</string>
 				<string>CB0B9AB61988431600A31743</string>
 				<string>CB0B9ABE1988431600A31743</string>
@@ -307,8 +309,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
 			<key>path</key>
 			<string>Supporting Files</string>
 			<key>sourceTree</key>
@@ -594,8 +594,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
 			<key>path</key>
 			<string>Supporting Files</string>
 			<key>sourceTree</key>
@@ -809,6 +807,8 @@
 			</array>
 			<key>defaultConfigurationIsVisible</key>
 			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
@@ -873,6 +873,8 @@
 			</array>
 			<key>defaultConfigurationIsVisible</key>
 			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
@@ -949,8 +951,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>UI Storyboard</string>
 			<key>path</key>
 			<string>UI Storyboard</string>
 			<key>sourceTree</key>
@@ -976,22 +976,6 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>CB0B9ADE198843CC00A31743</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB0B9ADF198843ED00A31743</string>
-				<string>CB0B9AE0198843ED00A31743</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Demo</string>
-			<key>path</key>
-			<string>Demo</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>CB0B9ADF198843ED00A31743</key>
 		<dict>
 			<key>fileEncoding</key>
@@ -1000,6 +984,8 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>DHPrimaryImageSliderViewController.h</string>
 			<key>path</key>
 			<string>DHPrimaryImageSliderViewController.h</string>
 			<key>sourceTree</key>
@@ -1013,6 +999,8 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>DHPrimaryImageSliderViewController.m</string>
 			<key>path</key>
 			<string>DHPrimaryImageSliderViewController.m</string>
 			<key>sourceTree</key>
@@ -1024,22 +1012,6 @@
 			<string>CB0B9AE0198843ED00A31743</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB0B9AE21988455900A31743</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB0B9AE31988457900A31743</string>
-				<string>CB0B9AE41988457900A31743</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Custom Image Slider</string>
-			<key>path</key>
-			<string>Custom Image Slider</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>CB0B9AE31988457900A31743</key>
 		<dict>
@@ -1087,8 +1059,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Graphics</string>
 			<key>path</key>
 			<string>Graphics</string>
 			<key>sourceTree</key>
@@ -1111,8 +1081,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Sample Images</string>
 			<key>path</key>
 			<string>Sample Images</string>
 			<key>sourceTree</key>
@@ -1129,8 +1097,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Scroll View Images</string>
 			<key>path</key>
 			<string>Scroll View Images</string>
 			<key>sourceTree</key>
