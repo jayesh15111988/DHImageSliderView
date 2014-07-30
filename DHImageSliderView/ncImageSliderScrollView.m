@@ -30,6 +30,11 @@
 
 - (void)initWithImages {
 
+    //Settting for given scroll view
+    self.contentMode = UIViewContentModeScaleAspectFill;
+    self.showsHorizontalScrollIndicator = NO;
+    self.showsVerticalScrollIndicator = NO;
+
     //These are collection of images given to the view
     self.imagesCollection = [NSMutableArray array];
 
@@ -196,7 +201,7 @@
     for (NSInteger i = 0; i < self.numberOfImagesOnSliderView; i++) {
 
         UIButton* imageSelectorButton = [[UIButton alloc] initWithFrame:CGRectMake (i * 40, 13, 30, 30)];
-        [imageSelectorButton setBackgroundImage:[UIImage imageNamed:(!i) ? @"DH_orange_page_indicator.png" : @"DH_gray_page_indicator.png"] forState:UIControlStateNormal];
+        [imageSelectorButton setBackgroundImage:[UIImage imageNamed:(!i) ? self.bulletSelectedImage : self.bulletDeselectedImage] forState:UIControlStateNormal];
         imageSelectorButton.tag = i + 1;
         [imageSelectorButton addTarget:self action:@selector (bulletButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.bulletButtonsView addSubview:imageSelectorButton];
@@ -211,8 +216,8 @@
 }
 
 - (void)updateBulletPointsWithSelectedButton:(UIButton*)clickedButton {
-    [(UIButton*)[self.bulletButtonsView viewWithTag:self.previouslySelectedButtonTagNumber] setBackgroundImage:[UIImage imageNamed:@"DH_gray_page_indicator.png"] forState:UIControlStateNormal];
-    [clickedButton setBackgroundImage:[UIImage imageNamed:@"DH_orange_page_indicator.png"] forState:UIControlStateNormal];
+    [(UIButton*)[self.bulletButtonsView viewWithTag:self.previouslySelectedButtonTagNumber] setBackgroundImage:[UIImage imageNamed:self.bulletDeselectedImage] forState:UIControlStateNormal];
+    [clickedButton setBackgroundImage:[UIImage imageNamed:self.bulletSelectedImage] forState:UIControlStateNormal];
     self.previouslySelectedButtonTagNumber = clickedButton.tag;
 }
 

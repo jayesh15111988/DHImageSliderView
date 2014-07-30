@@ -48,8 +48,12 @@
 
     //You may do it - If not it will just grab default images from project source.Here goes the fancy stuff you can put
 
-    //          self.imageSliderScrollView.backArrowImage = @"DH_btn_caret_white_left_horizontal.png";
-    //          self.imageSliderScrollView.nextArrowImage = @"DH_btn_caret_white_right_horizontal.png";
+    //   self.imageSliderScrollView.backArrowImage = @"DH_btn_caret_white_left_horizontal.png";
+    //  self.imageSliderScrollView.nextArrowImage = @"DH_btn_caret_white_right_horizontal.png";
+
+    //Setup bullet images only if you want bullet view to appear on screen
+    self.imageSliderScrollView.bulletSelectedImage = @"DH_orange_page_indicator.png";
+    self.imageSliderScrollView.bulletDeselectedImage = @"DH_gray_page_indicator.png";
 
     NSInteger numberOfTotalImages = self.imageSliderScrollView.numberOfImagesOnSliderView;
 

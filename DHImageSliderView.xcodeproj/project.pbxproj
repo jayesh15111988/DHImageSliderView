@@ -282,12 +282,10 @@
 		<dict>
 			<key>children</key>
 			<array>
+				<string>CB0B9B5319898FB000A31743</string>
+				<string>CB0B9B5219898F7F00A31743</string>
 				<string>CB0B9AE31988457900A31743</string>
 				<string>CB0B9AE41988457900A31743</string>
-				<string>CB0B9ADF198843ED00A31743</string>
-				<string>CB0B9AE0198843ED00A31743</string>
-				<string>CB0B9AB51988431600A31743</string>
-				<string>CB0B9AB61988431600A31743</string>
 				<string>CB0B9ABE1988431600A31743</string>
 				<string>CB0B9AAD1988431600A31743</string>
 			</array>
@@ -984,8 +982,6 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>DHPrimaryImageSliderViewController.h</string>
 			<key>path</key>
 			<string>DHPrimaryImageSliderViewController.h</string>
 			<key>sourceTree</key>
@@ -999,8 +995,6 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>DHPrimaryImageSliderViewController.m</string>
 			<key>path</key>
 			<string>DHPrimaryImageSliderViewController.m</string>
 			<key>sourceTree</key>
@@ -1021,8 +1015,6 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>ncImageSliderScrollView.h</string>
 			<key>path</key>
 			<string>ncImageSliderScrollView.h</string>
 			<key>sourceTree</key>
@@ -1036,8 +1028,6 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>ncImageSliderScrollView.m</string>
 			<key>path</key>
 			<string>ncImageSliderScrollView.m</string>
 			<key>sourceTree</key>
@@ -1353,6 +1343,38 @@
 			<string>CB0B9B02198930A800A31743</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>CB0B9B5219898F7F00A31743</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>CB0B9AB51988431600A31743</string>
+				<string>CB0B9AB61988431600A31743</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Appdelegate</string>
+			<key>path</key>
+			<string>Appdelegate</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CB0B9B5319898FB000A31743</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>CB0B9ADF198843ED00A31743</string>
+				<string>CB0B9AE0198843ED00A31743</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Image Slider Demo</string>
+			<key>path</key>
+			<string>Image Slider Demo</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

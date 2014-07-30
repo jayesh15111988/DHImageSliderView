@@ -30,7 +30,7 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="0im-oD-irx" customClass="ncImageSliderScrollView">
                                 <rect key="frame" x="87" y="100" width="850" height="500"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <connections>
                                     <outlet property="delegate" destination="hbb-xw-rFL" id="htU-TL-1Vt"/>
                                 </connections>

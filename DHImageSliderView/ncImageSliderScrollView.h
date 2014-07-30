@@ -24,6 +24,9 @@ typedef enum {
 @property (nonatomic, strong) NSArray* sliderImagesCollection;
 @property (nonatomic, assign) NSInteger currentSlideNumber;
 
+@property (nonatomic, strong) NSString* bulletSelectedImage;
+@property (nonatomic, strong) NSString* bulletDeselectedImage;
+
 //Which direction view should scroll? - Vertical or Horizontal
 @property (nonatomic, assign) SlideDirection imageSlideDirection;
 
