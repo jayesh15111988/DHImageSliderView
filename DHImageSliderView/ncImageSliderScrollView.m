@@ -195,7 +195,17 @@
 //Bullet point view which will allow user to jump from one image to another
 - (UIView*)getBulletPointsViewForImageSliderWithSize:(CGRect)bulletViewFrameSize {
     //This is the collection of bullet points to make random jumps from one image to another
-    self.bulletButtonsView = [[UIView alloc] initWithFrame:bulletViewFrameSize];
+    //User do not wish to initialize this view on his own - We will take care of it
+
+    if (bulletViewFrameSize.origin.x == -1) {
+
+        NSInteger maximumWidthOfBulletView = 40 * self.numberOfImagesOnSliderView;
+        CGRect customFrameForBulletView = CGRectMake ((self.frame.origin.x + (self.frame.size.width / 2) - (maximumWidthOfBulletView / 2)), self.frame.origin.y + 20 + self.frame.size.height, maximumWidthOfBulletView, 50);
+
+        self.bulletButtonsView = [[UIView alloc] initWithFrame:customFrameForBulletView];
+    } else {
+        self.bulletButtonsView = [[UIView alloc] initWithFrame:bulletViewFrameSize];
+    }
     [self.bulletButtonsView setBackgroundColor:[UIColor whiteColor]];
 
     for (NSInteger i = 0; i < self.numberOfImagesOnSliderView; i++) {
