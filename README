@@ -1,0 +1,5 @@
+See the sample project in DHImageSliderView/Demo for uses.
+
+Use Cocoapods to integrate into your projects:
+
+pod 'DHImageSliderView', :git => 'git@gitlab.duethealth.com:ios-projects/dhimagesliderview.git'

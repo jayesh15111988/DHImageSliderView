@@ -146,7 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				CB0B9AE21988455900A31743 /* Custom Image Slider */,
-				CB0B9ADE198843CC00A31743 /* Classes */,
+				CB0B9ADE198843CC00A31743 /* Demo */,
 				CB0B9AB51988431600A31743 /* DHAppDelegate.h */,
 				CB0B9AB61988431600A31743 /* DHAppDelegate.m */,
 				CB0B9ABE1988431600A31743 /* Images.xcassets */,
@@ -192,13 +192,13 @@
 			name = "UI Storyboard";
 			sourceTree = "<group>";
 		};
-		CB0B9ADE198843CC00A31743 /* Classes */ = {
+		CB0B9ADE198843CC00A31743 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				CB0B9ADF198843ED00A31743 /* DHPrimaryImageSliderViewController.h */,
 				CB0B9AE0198843ED00A31743 /* DHPrimaryImageSliderViewController.m */,
 			);
-			name = Classes;
+			name = Demo;
 			sourceTree = "<group>";
 		};
 		CB0B9AE21988455900A31743 /* Custom Image Slider */ = {
