@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ncImageSliderScrollView.h"
 
-@interface DHPrimaryImageSliderViewController : UIViewController<ncImageSliderScrollViewDelegate>
+@interface DHPrimaryImageSliderViewController : UIViewController
 
 @end

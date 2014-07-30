@@ -35,8 +35,8 @@
                                     <outlet property="delegate" destination="hbb-xw-rFL" id="htU-TL-1Vt"/>
                                 </connections>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Abg-pw-ONh">
-                                <rect key="frame" x="279" y="660" width="195" height="59"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Abg-pw-ONh">
+                                <rect key="frame" x="313" y="660" width="195" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Start Slideshow">
@@ -46,8 +46,8 @@
                                     <action selector="startSlideShowPressed:" destination="hbb-xw-rFL" eventType="touchUpInside" id="C6X-E5-9Uq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FAY-IU-NWX">
-                                <rect key="frame" x="560" y="660" width="195" height="59"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FAY-IU-NWX">
+                                <rect key="frame" x="516" y="660" width="195" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Stop Slideshow">
@@ -58,7 +58,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.91764712329999998" green="0.61568629740000003" blue="0.16862745579999999" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="UQn-9o-0qg"/>

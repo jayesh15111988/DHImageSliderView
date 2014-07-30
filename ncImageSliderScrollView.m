@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIButton* backArrow;
 @property (nonatomic, strong) UIButton* frontArrow;
 @property (nonatomic, assign) BOOL isVerticalSliding;
+@property (nonatomic, strong) UIView* bulletButtonsView;
+@property (nonatomic, assign) NSInteger previouslySelectedButtonTagNumber;
 
 //Height and width of Frame;
 @property (nonatomic, assign) float frameWidth;
@@ -82,8 +84,8 @@
     if (self.isVerticalSliding) {
 
         if (!self.backArrowImage || !self.nextArrowImage) {
-            self.backArrowImage = @"btn_caret_white_top_vertical.png";
-            self.nextArrowImage = @"btn_caret_white_bottom_vertical.png";
+            self.backArrowImage = @"DH_btn_caret_white_top_vertical.png";
+            self.nextArrowImage = @"DH_btn_caret_white_bottom_vertical.png";
         }
 
         self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake ((self.frameWidth / 2) - 20, 30, 33, 20)];
@@ -91,8 +93,8 @@
 
     } else {
         if (!self.backArrowImage || !self.nextArrowImage) {
-            self.backArrowImage = @"btn_caret_white_left_horizontal.png";
-            self.nextArrowImage = @"btn_caret_white_right_horizontal.png";
+            self.backArrowImage = @"DH_btn_caret_white_left_horizontal.png";
+            self.nextArrowImage = @"DH_btn_caret_white_right_horizontal.png";
         }
         self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake (30, (self.frameHeight / 2) - 17, 20, 33)];
         self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake (self.frameWidth - 50, (self.frameHeight / 2) - 17, 20, 33)];
@@ -106,6 +108,7 @@
 
     [self addSubview:self.frontArrow];
     [self addSubview:self.backArrow];
+    self.previouslySelectedButtonTagNumber = 1;
 }
 
 - (IBAction)showPreviousImage:(id)sender {
@@ -117,14 +120,6 @@
         //If this is very first image and we want to go to previous image. In this case we will scroll to last image on the view
         [self makeTransitionToOffset:self.lengthOfDesiredImageDimension * (self.numberOfImagesOnSliderView - 1)];
     }
-
-    //Make sure you setup delegate in case want to update main view UI on image slide event
-    if ([self.delegate respondsToSelector:@selector (sliderImageUpdatedToImageNumber:)]) {
-        [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
-    } else {
-        NSLog (@"NO Delegate setup for protocol sliderImageUpdatedToImageNumber"
-               @"please implement delegate protocol in the method you are calling this class from ");
-    }
 }
 
 - (IBAction)showNextImage:(id)sender {
@@ -135,14 +130,6 @@
     } else {
         //If this is very last image and we want to go to next image. In this case we will scroll to first image on the view
         [self makeTransitionToOffset:0.0];
-    }
-
-    //Make sure you setup delegate in case want to update main view UI on image slide event
-    if ([self.delegate respondsToSelector:@selector (sliderImageUpdatedToImageNumber:)]) {
-        [self.delegate sliderImageUpdatedToImageNumber:self.currentSlideNumber];
-    } else {
-        NSLog (@"NO Delegate setup for protocol sliderImageUpdatedToImageNumber"
-               @"please implement delegate protocol in the method you are calling this class from ");
     }
 }
 
@@ -178,6 +165,7 @@
                         
                 
                         self.contentOffset =self.isVerticalSliding? CGPointMake(0,offsetSlideValue):CGPointMake(offsetSlideValue,0);
+                        [self updateBulletPointsWithSelectedButton:(UIButton*)[self.bulletButtonsView viewWithTag:self.currentSlideNumber + 1]];
                     }
                     completion:NULL];
 }
@@ -197,6 +185,36 @@
     if ([self.pulseTimer isValid]) {
         [self.pulseTimer invalidate];
     }
+}
+
+//Bullet point view which will allow user to jump from one image to another
+- (UIView*)getBulletPointsViewForImageSliderWithSize:(CGRect)bulletViewFrameSize {
+    //This is the collection of bullet points to make random jumps from one image to another
+    self.bulletButtonsView = [[UIView alloc] initWithFrame:bulletViewFrameSize];
+    [self.bulletButtonsView setBackgroundColor:[UIColor whiteColor]];
+
+    for (NSInteger i = 0; i < self.numberOfImagesOnSliderView; i++) {
+
+        UIButton* imageSelectorButton = [[UIButton alloc] initWithFrame:CGRectMake (i * 40, 13, 30, 30)];
+        [imageSelectorButton setBackgroundImage:[UIImage imageNamed:(!i) ? @"DH_orange_page_indicator.png" : @"DH_gray_page_indicator.png"] forState:UIControlStateNormal];
+        imageSelectorButton.tag = i + 1;
+        [imageSelectorButton addTarget:self action:@selector (bulletButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.bulletButtonsView addSubview:imageSelectorButton];
+    }
+    return self.bulletButtonsView;
+}
+
+- (IBAction)bulletButtonPressed:(UIButton*)sender {
+
+    [self updateBulletPointsWithSelectedButton:sender];
+
+    [self slideToImageWithSequence:sender.tag - 1];
+}
+
+- (void)updateBulletPointsWithSelectedButton:(UIButton*)clickedButton {
+    [(UIButton*)[self.bulletButtonsView viewWithTag:self.previouslySelectedButtonTagNumber] setBackgroundImage:[UIImage imageNamed:@"DH_gray_page_indicator.png"] forState:UIControlStateNormal];
+    [clickedButton setBackgroundImage:[UIImage imageNamed:@"DH_orange_page_indicator.png"] forState:UIControlStateNormal];
+    self.previouslySelectedButtonTagNumber = clickedButton.tag;
 }
 
 @end

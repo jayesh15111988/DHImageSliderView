@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ncImageSliderScrollViewDelegate<UIScrollViewDelegate>
-@optional
-- (void)sliderImageUpdatedToImageNumber:(NSInteger)imageSequenceNumber;
-@end
-
 //We have third type as default which zeroes in on Horizontal scrolling
 typedef enum {
     Horizontal,
@@ -32,15 +27,13 @@ typedef enum {
 //Which direction view should scroll? - Vertical or Horizontal
 @property (nonatomic, assign) SlideDirection imageSlideDirection;
 
-//What happens when user clicks back and next buttons on slider
-@property (nonatomic, assign) id<ncImageSliderScrollViewDelegate> delegate;
-
 - (void)initWithImages;
 
 - (void)getAdjustedScrollViewXPositionForOffset;
 - (void)adjustToCalculatedOffset;
-- (void)slideToImageWithSequence:(NSInteger)imageSequence; //Sequence ranges from 0 to max-1
 
 - (void)startAutoSlideShowWithInterval:(NSTimeInterval)autoSlideShowInterval;
 - (void)stopAutoSlideShow;
+
+- (UIView*)getBulletPointsViewForImageSliderWithSize:(CGRect)bulletViewFrameSize;
 @end
