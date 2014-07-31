@@ -37,7 +37,7 @@
 
 - (void)addBulletsViewOnScreen {
 
-    [self.view addSubview:[self.imageSliderScrollView getBulletPointsViewForImageSliderWithSize:CGRectMake (380, 610, 40 * NUMBER_OF_IMAGES_ON_SLIDER_VIEW, 50)]];
+    [self.view addSubview:[self.imageSliderScrollView getBulletPointsViewForImageSliderWithSize:CGRectNull]];
 }
 
 - (void)setupSliderImageView {

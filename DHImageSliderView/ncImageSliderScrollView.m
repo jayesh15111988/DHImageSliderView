@@ -197,7 +197,7 @@
     //This is the collection of bullet points to make random jumps from one image to another
     //User do not wish to initialize this view on his own - We will take care of it
 
-    if (bulletViewFrameSize.origin.x == -1) {
+    if (CGRectIsEmpty (bulletViewFrameSize)) {
 
         NSInteger maximumWidthOfBulletView = 40 * self.numberOfImagesOnSliderView;
         CGRect customFrameForBulletView = CGRectMake ((self.frame.origin.x + (self.frame.size.width / 2) - (maximumWidthOfBulletView / 2)), self.frame.origin.y + 20 + self.frame.size.height, maximumWidthOfBulletView, 50);
