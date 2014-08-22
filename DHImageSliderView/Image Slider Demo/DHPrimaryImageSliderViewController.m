@@ -43,8 +43,11 @@
 - (void)setupSliderImageView {
 
     self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
+    //Animation duration while making transition
     self.imageSliderScrollView.slideDuration = 0.5f;
-    self.imageSliderScrollView.imageSlideDirection = Default;
+    self.imageSliderScrollView.imageSlideDirection = Vertical;
+    //Once you swipe, it makes quick transition to other slide
+    self.imageSliderScrollView.isConinuousSwipe = NO;
 
     //You may do it - If not it will just grab default images from project source.Here goes the fancy stuff you can put
 

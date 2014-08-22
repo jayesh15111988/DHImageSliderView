@@ -30,6 +30,10 @@ typedef enum {
 //Which direction view should scroll? - Vertical or Horizontal
 @property (nonatomic, assign) SlideDirection imageSlideDirection;
 
+//Continuous or step swipe when user swipes his fingers over the screen
+//Default is step swip mode
+@property (assign, nonatomic) BOOL isConinuousSwipe;
+
 - (void)initWithImages;
 
 - (void)getAdjustedScrollViewXPositionForOffset;

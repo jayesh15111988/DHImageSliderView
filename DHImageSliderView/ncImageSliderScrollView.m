@@ -114,6 +114,12 @@
     [self addSubview:self.frontArrow];
     [self addSubview:self.backArrow];
     self.previouslySelectedButtonTagNumber = 1;
+
+    //Add swipe Gesture only if we want step transition
+    if (!self.isConinuousSwipe) {
+        self.scrollEnabled = NO;
+        [self setupGestureRecognizerForImageSliderView];
+    }
 }
 
 - (IBAction)showPreviousImage:(id)sender {
@@ -220,8 +226,7 @@
 }
 
 - (IBAction)bulletButtonPressed:(UIButton*)sender {
-
-    [self updateBulletPointsWithSelectedButton:sender];
+    //    [self updateBulletPointsWithSelectedButton:sender];
     [self slideToImageWithSequence:sender.tag - 1];
 }
 
@@ -229,6 +234,44 @@
     [(UIButton*)[self.bulletButtonsView viewWithTag:self.previouslySelectedButtonTagNumber] setBackgroundImage:[UIImage imageNamed:self.bulletDeselectedImage] forState:UIControlStateNormal];
     [clickedButton setBackgroundImage:[UIImage imageNamed:self.bulletSelectedImage] forState:UIControlStateNormal];
     self.previouslySelectedButtonTagNumber = clickedButton.tag;
+}
+
+- (IBAction)handleSwipe:(UISwipeGestureRecognizer*)swipe {
+
+    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft || swipe.direction == UISwipeGestureRecognizerDirectionUp) {
+        self.currentSlideNumber = (++self.currentSlideNumber) % self.numberOfImagesOnSliderView;
+    }
+
+    if (swipe.direction == UISwipeGestureRecognizerDirectionRight || swipe.direction == UISwipeGestureRecognizerDirectionDown) {
+
+        self.currentSlideNumber = (--self.currentSlideNumber) % self.numberOfImagesOnSliderView;
+
+        self.currentSlideNumber = (self.currentSlideNumber < 0) ? (self.currentSlideNumber + self.numberOfImagesOnSliderView) : self.currentSlideNumber;
+    }
+
+    [self slideToImageWithSequence:self.currentSlideNumber];
+}
+
+- (void)setupGestureRecognizerForImageSliderView {
+
+    //Add gesture Recognizers to image slide view. Apparently delegate didScrollView does not seem to work smoothly
+    //User cannot swipe the view manually. If can only be swiped through gesture recognizer and provided bullet buttons
+
+    UISwipeGestureRecognizer* swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector (handleSwipe:)];
+    UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector (handleSwipe:)];
+
+    // Setting the swipe direction.
+    if (self.imageSlideDirection == Vertical) {
+        [swipeLeft setDirection:UISwipeGestureRecognizerDirectionUp];
+        [swipeRight setDirection:UISwipeGestureRecognizerDirectionDown];
+    } else {
+        [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+        [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    }
+
+    // Adding the swipe gesture on image view
+    [self addGestureRecognizer:swipeLeft];
+    [self addGestureRecognizer:swipeRight];
 }
 
 @end
