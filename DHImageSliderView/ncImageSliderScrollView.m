@@ -116,7 +116,7 @@
     self.previouslySelectedButtonTagNumber = 1;
 
     //Add swipe Gesture only if we want step transition
-    if (!self.isConinuousSwipe) {
+    if (!self.isContinuousSwipe) {
         self.scrollEnabled = NO;
         [self setupGestureRecognizerForImageSliderView];
     }

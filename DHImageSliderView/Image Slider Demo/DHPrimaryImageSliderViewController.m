@@ -47,7 +47,7 @@
     self.imageSliderScrollView.slideDuration = 0.5f;
     self.imageSliderScrollView.imageSlideDirection = Vertical;
     //Once you swipe, it makes quick transition to other slide
-    self.imageSliderScrollView.isConinuousSwipe = NO;
+    self.imageSliderScrollView.isContinuousSwipe = NO;
 
     //You may do it - If not it will just grab default images from project source.Here goes the fancy stuff you can put
 

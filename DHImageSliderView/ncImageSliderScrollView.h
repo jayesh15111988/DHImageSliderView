@@ -32,7 +32,7 @@ typedef enum {
 
 //Continuous or step swipe when user swipes his fingers over the screen
 //Default is step swip mode
-@property (assign, nonatomic) BOOL isConinuousSwipe;
+@property (assign, nonatomic) BOOL isContinuousSwipe;
 
 - (void)initWithImages;
 

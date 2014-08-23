@@ -19,5 +19,5 @@ DerivedData
 src/*
 lib/*
 xcuserstate
-xcshareddata/
+#xcshareddata/
 Pods
