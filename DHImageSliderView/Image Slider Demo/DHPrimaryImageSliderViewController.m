@@ -45,7 +45,7 @@
     self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
     //Animation duration while making transition
     self.imageSliderScrollView.slideDuration = 0.5f;
-    self.imageSliderScrollView.imageSlideDirection = Vertical;
+    self.imageSliderScrollView.imageSlideDirection = Default;
     //Once you swipe, it makes quick transition to other slide
     self.imageSliderScrollView.isContinuousSwipe = NO;
 

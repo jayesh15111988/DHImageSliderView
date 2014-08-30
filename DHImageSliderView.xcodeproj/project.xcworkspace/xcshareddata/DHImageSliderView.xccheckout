@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>E2DF230D-0FD1-4233-A4EF-7EED3668E02F</string>
+	<string>22123BAD-4DD8-42DB-827B-1CC3D09F6122</string>
 	<key>IDESourceControlProjectName</key>
 	<string>DHImageSliderView</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>71C95D0B-0778-487A-80D4-BA13F9C0349D</key>
-		<string>ssh://gitlab.duethealth.com/ios-projects/dhimagesliderview.git</string>
+		<key>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</key>
+		<string>ssh://github.com/jayesh15111988/DHImageSlider.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>DHImageSliderView.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>71C95D0B-0778-487A-80D4-BA13F9C0349D</key>
+		<key>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://gitlab.duethealth.com/ios-projects/dhimagesliderview.git</string>
+	<string>ssh://github.com/jayesh15111988/DHImageSlider.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>71C95D0B-0778-487A-80D4-BA13F9C0349D</string>
+	<string>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>71C95D0B-0778-487A-80D4-BA13F9C0349D</string>
+			<string>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>DHImageSliderView</string>
 		</dict>
