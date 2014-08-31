@@ -6,3 +6,13 @@ pod 'DHImageSliderView', :git => 'git@github.com:jayesh15111988/DHImageSliderVie
 
 Important Note: Please go through Wiki (https://github.com/jayesh15111988/DHImageSliderView/wiki/Wiki-Page-for-Image-Slider) 
 to know more about how to use this library
+
+To summarize It has following features:
+
+1.	Touch based navigation
+2.	Button based scroll
+3.	Auto scroll
+4.	Play / pause functionality
+5.	Horizontal / Vertical scroll
+6.	Customizable APIs to add set of images
+7.	Pleasant indicators to show current scroll state
