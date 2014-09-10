@@ -2,11 +2,11 @@ Pod::Spec.new do |s|
   s.name          = 'DHImageSliderView'
   s.version       = '1.0'
   s.license       = 'MIT'
-  s.summary       = 'DHKit Image Slider'
-  s.homepage      = 'http://gitlab.duethealth.com/ios-projects'
+  s.summary       = 'DH Image Slider'
+  s.homepage      = 'https://github.com/jayesh15111988'
   s.author        = 'Jayesh Kawli'
   s.source        = { 
-			:git => 'git@gitlab.duethealth.com:ios-projects/dhimagesliderview.git',:tag => 'v1.0' 
+			:git => 'git@github.com:jayesh15111988/DHImageSliderView.git',:tag => 'v1.1' 
 		    }
   s.source_files  = 'DHImageSliderView/**'
   s.requires_arc  = true
