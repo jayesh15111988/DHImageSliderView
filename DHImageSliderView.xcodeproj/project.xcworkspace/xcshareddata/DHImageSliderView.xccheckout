@@ -10,29 +10,29 @@
 	<string>DHImageSliderView</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</key>
-		<string>ssh://github.com/jayesh15111988/DHImageSlider.git</string>
+		<key>95CC0C16C11DA19BA08E06DF23AFA113C52D71D4</key>
+		<string>github.com:jayesh15111988/DHImageSliderView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>DHImageSliderView.xcodeproj/project.xcworkspace</string>
+	<string>DHImageSliderView.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</key>
+		<key>95CC0C16C11DA19BA08E06DF23AFA113C52D71D4</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/jayesh15111988/DHImageSlider.git</string>
+	<string>github.com:jayesh15111988/DHImageSliderView.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</string>
+	<string>95CC0C16C11DA19BA08E06DF23AFA113C52D71D4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3CE8EE2A-52C4-45B2-9EF1-A2EB71D4718D</string>
+			<string>95CC0C16C11DA19BA08E06DF23AFA113C52D71D4</string>
 			<key>IDESourceControlWCCName</key>
 			<string>DHImageSliderView</string>
 		</dict>
