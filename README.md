@@ -2,20 +2,20 @@ See the sample project in DHImageSliderView/Demo for uses.
 
 Use Cocoapods to integrate into your projects:
 
-pod 'DHImageSliderView', :git => 'git@github.com:jayesh15111988/DHImageSliderView.git' , :branch => 'master'
+```pod 'DHImageSliderView', :git => 'git@github.com:jayesh15111988/DHImageSliderView.git' , :branch => 'master'```
 
-Important Note: Please go through Wiki (https://github.com/jayesh15111988/DHImageSliderView/wiki/Wiki-Page-for-Image-Slider) 
+Important Note: Please go through Wiki ```(https://github.com/jayesh15111988/DHImageSliderView/wiki/Wiki-Page-for-Image-Slider)```
 to know more about how to use this library
 
 To summarize It has following features:
 
-1.	Touch based navigation
-2.	Button based scroll
-3.	Auto scroll
-4.	Play / pause functionality
-5.	Horizontal / Vertical scroll
-6.	Customizable APIs to add set of images
-7.	Pleasant indicators to show current scroll state
+ - Touch based navigation
+ - Button based scroll
+ - Auto scroll
+ - Play / pause functionality
+ - Horizontal / Vertical scroll
+ - Customizable APIs to add set of images
+ - Pleasant indicators to show current scroll state
 
 <p>
 And Finally here are some of the most fabulous screenshots from this project
