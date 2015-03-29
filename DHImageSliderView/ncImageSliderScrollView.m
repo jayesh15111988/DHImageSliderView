@@ -149,6 +149,7 @@
 
 - (void)slideToImageWithSequence:(NSInteger)imageSequence {
     //Manually sliding images. Range from 0 to max-1
+    self.currentSlideNumber = imageSequence;
     [self makeTransitionToOffset:self.lengthOfDesiredImageDimension * imageSequence];
 }
 - (void)getAdjustedScrollViewXPositionForOffset {
