@@ -17,9 +17,16 @@ To summarize It has following features:
  - Customizable APIs to add set of images
  - Pleasant indicators to show current scroll state
 
-<p>
-And Finally here are some of the most fabulous screenshots from this project
 
+<p>
+<b>All Features added on a single GIF</b>
+<p>
+<img src='https://github.com/jayesh15111988/DHImageSliderView/blob/master/Screenshots/DHImageSliderSmall.gif'>
+</p>
+</p>
+
+<p>
+And here are some more fabulous screenshots from this project
 <p>
 <b>Customizable image switch buttons</b>
 <p>
