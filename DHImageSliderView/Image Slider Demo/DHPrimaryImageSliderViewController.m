@@ -42,13 +42,13 @@
 
 - (void)setupSliderImageView {
 
-    self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
+    //self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
     //Animation duration while making transition
     self.imageSliderScrollView.slideDuration = 0.5f;
     self.imageSliderScrollView.imageSlideDirection = Default;
     //Once you swipe, it makes quick transition to other slide
     self.imageSliderScrollView.isContinuousSwipe = NO;
-
+    self.imageSliderScrollView.sliderImageFrameSize = self.imageSliderScrollView.frame.size;
     //You may do it - If not it will just grab default images from project source.Here goes the fancy stuff you can put
 
     //   self.imageSliderScrollView.backArrowImage = @"DH_btn_caret_white_left_horizontal.png";
@@ -57,20 +57,20 @@
     //Setup bullet images only if you want bullet view to appear on screen
     self.imageSliderScrollView.bulletSelectedImage = @"DH_orange_page_indicator.png";
     self.imageSliderScrollView.bulletDeselectedImage = @"DH_gray_page_indicator.png";
+    self.imageSliderScrollView.previousNextButtonsFrameSize = CGSizeMake(22, 33);
 
-    NSInteger numberOfTotalImages = self.imageSliderScrollView.numberOfImagesOnSliderView;
+    NSInteger numberOfTotalImages = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
 
     //We collect images and assign to array of image slider class
 
     NSMutableArray* imagesCollectionToDisplayOnslider = [NSMutableArray array];
     while (numberOfTotalImages) {
 
-        [imagesCollectionToDisplayOnslider addObject:[NSString stringWithFormat:@"DH_img_main_%d.png", numberOfTotalImages--]];
+        [imagesCollectionToDisplayOnslider addObject:[NSString stringWithFormat:@"DH_img_main_%ld.png", (long)numberOfTotalImages--]];
     }
 
     //This is whole collection of available images that will be shown on current view on screen
-    self.imageSliderScrollView.sliderImagesCollection = imagesCollectionToDisplayOnslider;
-    [self.imageSliderScrollView initWithImages];
+    [self.imageSliderScrollView initAndSetSliderImagesCollection:imagesCollectionToDisplayOnslider];
 }
 
 #pragma mark scrollview delegate methods

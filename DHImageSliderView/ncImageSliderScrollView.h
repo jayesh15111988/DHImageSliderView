@@ -17,8 +17,9 @@ typedef enum {
 
 @interface ncImageSliderScrollView : UIScrollView
 
-@property (nonatomic, assign) NSInteger numberOfImagesOnSliderView;
-@property (nonatomic, assign) float slideDuration;
+@property (assign) CGSize sliderImageFrameSize;
+@property (assign) CGSize previousNextButtonsFrameSize;
+@property (nonatomic, assign) CGFloat slideDuration;
 @property (nonatomic, strong) NSString* backArrowImage;
 @property (nonatomic, strong) NSString* nextArrowImage;
 @property (nonatomic, strong) NSArray* sliderImagesCollection;
@@ -34,8 +35,7 @@ typedef enum {
 //Default is step swip mode
 @property (assign, nonatomic) BOOL isContinuousSwipe;
 
-- (void)initWithImages;
-
+- (void)initAndSetSliderImagesCollection:(NSArray*)sliderImageNamesCollection;
 - (void)getAdjustedScrollViewXPositionForOffset;
 - (void)adjustToCalculatedOffset;
 

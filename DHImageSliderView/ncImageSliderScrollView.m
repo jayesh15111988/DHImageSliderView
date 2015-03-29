@@ -10,6 +10,7 @@
 
 @interface ncImageSliderScrollView ()
 
+@property (nonatomic, assign) NSInteger numberOfImagesOnSliderView;
 @property (nonatomic, strong) NSMutableArray* imagesCollection;
 @property (nonatomic, assign) NSInteger lengthOfDesiredImageDimension;
 @property (nonatomic, assign) NSInteger offsetToAdjustImageSliderTo;
@@ -31,7 +32,6 @@
 - (void)initWithImages {
 
     //Settting for given scroll view
-    self.contentMode = UIViewContentModeScaleAspectFill;
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
 
@@ -53,14 +53,14 @@
     self.lengthOfDesiredImageDimension = (self.isVerticalSliding) ? self.frame.size.height : self.frame.size.width;
 
     //Original position of an image
-    float positionOfImage = 0.0f;
-
+    CGFloat positionOfImage = 0.0f;
+    self.numberOfImagesOnSliderView = self.sliderImagesCollection.count;
     //Add input images to scroll view one by one
     for (NSString* individualSliderImage in self.sliderImagesCollection) {
 
         UIImageView* imageViewToAddToSliderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:individualSliderImage]];
         [imageViewToAddToSliderView sizeToFit];
-
+        imageViewToAddToSliderView.contentMode = UIViewContentModeScaleAspectFill;
         //Horizontal bouncing - No for vertical scrolling and vice versa
 
         self.alwaysBounceHorizontal = !self.isVerticalSliding;
@@ -68,15 +68,13 @@
 
         if (self.isVerticalSliding) {
 
-            imageViewToAddToSliderView.frame = CGRectMake (imageViewToAddToSliderView.frame.origin.x, positionOfImage, self.frameWidth, self.frameHeight);
+            imageViewToAddToSliderView.frame = CGRectMake (imageViewToAddToSliderView.frame.origin.x, positionOfImage, self.sliderImageFrameSize.width, self.sliderImageFrameSize.height);
 
         } else {
 
-            imageViewToAddToSliderView.frame = CGRectMake (positionOfImage, imageViewToAddToSliderView.frame.origin.y, self.frameWidth, self.frameHeight);
+            imageViewToAddToSliderView.frame = CGRectMake (positionOfImage, imageViewToAddToSliderView.frame.origin.y, self.sliderImageFrameSize.width, self.sliderImageFrameSize.height);
         }
         positionOfImage += self.lengthOfDesiredImageDimension; // Adding some gutter between image if possible putting 0.0 for time being
-
-        //  self.contentSize = imageViewToAddToSliderView.frame.size;
 
         [self addSubview:imageViewToAddToSliderView];
     }
@@ -93,16 +91,16 @@
             self.nextArrowImage = @"DH_btn_caret_white_bottom_vertical.png";
         }
 
-        self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake ((self.frameWidth / 2) - 20, 30, 33, 20)];
-        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake ((self.frameWidth / 2) - 20, self.frameHeight - 50, 33, 20)];
+        self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake ((self.frameWidth / 2) - 20, 30, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height)];
+        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake ((self.frameWidth / 2) - 20, self.frameHeight - 50, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height)];
 
     } else {
         if (!self.backArrowImage || !self.nextArrowImage) {
             self.backArrowImage = @"DH_btn_caret_white_left_horizontal.png";
             self.nextArrowImage = @"DH_btn_caret_white_right_horizontal.png";
         }
-        self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake (30, (self.frameHeight / 2) - 17, 20, 33)];
-        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake (self.frameWidth - 50, (self.frameHeight / 2) - 17, 20, 33)];
+        self.backArrow = [[UIButton alloc] initWithFrame:CGRectMake (30, (self.frameHeight / 2) - 17, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height)];
+        self.frontArrow = [[UIButton alloc] initWithFrame:CGRectMake (self.frameWidth - 50, (self.frameHeight / 2) - 17, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height)];
     }
 
     [self.backArrow setBackgroundImage:[UIImage imageNamed:self.backArrowImage] forState:UIControlStateNormal];
@@ -159,11 +157,11 @@
     self.offsetToAdjustImageSliderTo = self.currentSlideNumber * self.lengthOfDesiredImageDimension;
 
     if (self.isVerticalSliding) {
-        self.backArrow.frame = CGRectMake (self.backArrow.frame.origin.x, self.contentOffset.y + 20, 33, 20);
-        self.frontArrow.frame = CGRectMake (self.frontArrow.frame.origin.x, self.contentOffset.y + self.frame.size.height - 50, 33, 20);
+        self.backArrow.frame = CGRectMake (self.backArrow.frame.origin.x, self.contentOffset.y + 20, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height);
+        self.frontArrow.frame = CGRectMake (self.frontArrow.frame.origin.x, self.contentOffset.y + self.frame.size.height - 50, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height);
     } else {
-        self.backArrow.frame = CGRectMake (self.contentOffset.x + 30, self.backArrow.frame.origin.y, 20, 33);
-        self.frontArrow.frame = CGRectMake (self.contentOffset.x + self.frame.size.width - 50, self.frontArrow.frame.origin.y, 20, 33);
+        self.backArrow.frame = CGRectMake (self.contentOffset.x + 30, self.backArrow.frame.origin.y, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height);
+        self.frontArrow.frame = CGRectMake (self.contentOffset.x + self.frame.size.width - 50, self.frontArrow.frame.origin.y, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height);
     }
 }
 
@@ -272,6 +270,16 @@
     // Adding the swipe gesture on image view
     [self addGestureRecognizer:swipeLeft];
     [self addGestureRecognizer:swipeRight];
+}
+
+-(void)initAndSetSliderImagesCollection:(NSArray *)sliderImageNamesCollection {
+    if(CGSizeEqualToSize(self.previousNextButtonsFrameSize, CGSizeZero)) {
+        NSLog(@"Empty Button Frame Size");
+        self.previousNextButtonsFrameSize = CGSizeMake(24, 24);
+    }
+    
+    self.sliderImagesCollection = sliderImageNamesCollection;
+    [self initWithImages];
 }
 
 @end
