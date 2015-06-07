@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-//We have third type as default which zeroes in on Horizontal scrolling
+// We have third type as default which zeroes in on Horizontal scrolling.
 typedef enum {
     Horizontal,
     Vertical,
@@ -17,30 +17,33 @@ typedef enum {
 
 @interface ncImageSliderScrollView : UIScrollView
 
-@property (assign) CGSize sliderImageFrameSize;
-@property (assign) CGSize previousNextButtonsFrameSize;
+@property (assign, nonatomic) CGSize sliderImageFrameSize;
+@property (assign, nonatomic) CGSize previousNextButtonsFrameSize;
+@property (assign, nonatomic) CGSize bulletImageSize;
 @property (nonatomic, assign) CGFloat slideDuration;
 @property (nonatomic, strong) NSString* backArrowImage;
 @property (nonatomic, strong) NSString* nextArrowImage;
 @property (nonatomic, strong) NSArray* sliderImagesCollection;
 @property (nonatomic, assign) NSInteger currentSlideNumber;
+@property (nonatomic, assign) UIViewContentMode slidingImagesContentMode;
 
 @property (nonatomic, strong) NSString* bulletSelectedImage;
 @property (nonatomic, strong) NSString* bulletDeselectedImage;
 
-//Which direction view should scroll? - Vertical or Horizontal
+// Which direction view should scroll? - Vertical or Horizontal.
 @property (nonatomic, assign) SlideDirection imageSlideDirection;
 
-//Continuous or step swipe when user swipes his fingers over the screen
-//Default is step swip mode
+// Continuous or step swipe when user swipes his fingers over the screen.
+// Default is step swip mode.
+
 @property (assign, nonatomic) BOOL isContinuousSwipe;
 
 - (void)initAndSetSliderImagesCollection:(NSArray*)sliderImageNamesCollection;
-- (void)getAdjustedScrollViewXPositionForOffset;
+- (void)adjustedScrollViewXPositionForOffset;
 - (void)adjustToCalculatedOffset;
 
 - (void)startAutoSlideShowWithInterval:(NSTimeInterval)autoSlideShowInterval;
 - (void)stopAutoSlideShow;
 
-- (UIView*)getBulletPointsViewForImageSliderWithSize:(CGRect)bulletViewFrameSize;
+- (UIView*)bulletPointsViewForImageSlider;
 @end

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QIv-Ow-n8v">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="fLR-ZO-SA3">
+            <objects>
+                <navigationController id="QIv-Ow-n8v" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sgE-hf-F9p">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ifp-qk-Oit" kind="relationship" relationship="rootViewController" id="7q0-yo-Prh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rXp-qp-Fs9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-830" y="18"/>
+        </scene>
+        <!--Primary Image Slider View Controller-->
+        <scene sceneID="aTq-f3-kAO">
+            <objects>
+                <viewController id="Ifp-qk-Oit" customClass="DHPrimaryImageSliderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oEa-c1-4tK"/>
+                        <viewControllerLayoutGuide type="bottom" id="RY4-c6-ikL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UXp-I0-c82">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMc-Yc-E4O" customClass="ncImageSliderScrollView">
+                                <rect key="frame" x="32" y="100" width="256" height="175"/>
+                                <color key="backgroundColor" red="0.6196289062" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="175" id="HAU-kg-giv"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Ifp-qk-Oit" id="prY-N5-xeX"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tMc-Yc-E4O" firstAttribute="top" secondItem="oEa-c1-4tK" secondAttribute="bottom" constant="36" id="9tm-mU-y7L"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tMc-Yc-E4O" secondAttribute="trailing" constant="16" id="SJ9-et-TTY"/>
+                            <constraint firstItem="tMc-Yc-E4O" firstAttribute="leading" secondItem="UXp-I0-c82" secondAttribute="leadingMargin" constant="16" id="a4N-Eq-aMy"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="vDg-pn-3WV"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="imageSliderScrollView" destination="tMc-Yc-E4O" id="Sel-YD-IBO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="siv-pS-85Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-417" y="18"/>
+        </scene>
+    </scenes>
+</document>

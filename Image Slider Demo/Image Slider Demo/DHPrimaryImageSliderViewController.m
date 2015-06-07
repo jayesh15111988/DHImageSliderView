@@ -21,42 +21,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self setupSliderImageView];
-    [self addBulletsViewOnScreen];
-
-    //Prevent scroll view from sliding itself to the bottom. Happens only in horizontal scrolling
     self.automaticallyAdjustsScrollViewInsets = NO;
+    [self setupSliderImageView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //Content offset set to origin - Must be placed in the viewDidAppear
+    // Content offset set to origin - Must be placed in the viewDidAppear.
     self.imageSliderScrollView.contentOffset = CGPointMake (0, 0);
-}
-
-- (void)addBulletsViewOnScreen {
-
-    [self.view addSubview:[self.imageSliderScrollView getBulletPointsViewForImageSliderWithSize:CGRectNull]];
 }
 
 - (void)setupSliderImageView {
 
     //self.imageSliderScrollView.numberOfImagesOnSliderView = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
     //Animation duration while making transition
+    self.imageSliderScrollView.bulletImageSize = CGSizeMake(20, 20);
     self.imageSliderScrollView.slideDuration = 0.5f;
     self.imageSliderScrollView.imageSlideDirection = Default;
+    self.imageSliderScrollView.slidingImagesContentMode = UIViewContentModeScaleAspectFill;
     //Once you swipe, it makes quick transition to other slide
-    self.imageSliderScrollView.isContinuousSwipe = NO;
-    self.imageSliderScrollView.sliderImageFrameSize = self.imageSliderScrollView.frame.size;
+    self.imageSliderScrollView.isContinuousSwipe = YES;
+    
+
     //You may do it - If not it will just grab default images from project source.Here goes the fancy stuff you can put
 
-    //   self.imageSliderScrollView.backArrowImage = @"DH_btn_caret_white_left_horizontal.png";
-    //  self.imageSliderScrollView.nextArrowImage = @"DH_btn_caret_white_right_horizontal.png";
+    // self.imageSliderScrollView.backArrowImage = @"DH_btn_caret_white_left_horizontal.png";
+    // self.imageSliderScrollView.nextArrowImage = @"DH_btn_caret_white_right_horizontal.png";
 
     //Setup bullet images only if you want bullet view to appear on screen
     self.imageSliderScrollView.bulletSelectedImage = @"DH_orange_page_indicator.png";
     self.imageSliderScrollView.bulletDeselectedImage = @"DH_gray_page_indicator.png";
+    
     self.imageSliderScrollView.previousNextButtonsFrameSize = CGSizeMake(22, 33);
 
     NSInteger numberOfTotalImages = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
@@ -71,6 +66,7 @@
 
     //This is whole collection of available images that will be shown on current view on screen
     [self.imageSliderScrollView initAndSetSliderImagesCollection:imagesCollectionToDisplayOnslider];
+    [self.view addSubview:[self.imageSliderScrollView bulletPointsViewForImageSlider]];
 }
 
 #pragma mark scrollview delegate methods
@@ -78,7 +74,7 @@
 
     //Call this method when scroll view gets scrolled each time. This will be used to adjust image position once delegate detects it has started
     //To decelerate
-    [self.imageSliderScrollView getAdjustedScrollViewXPositionForOffset];
+    [self.imageSliderScrollView adjustedScrollViewXPositionForOffset];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
@@ -95,7 +91,7 @@
 
 - (IBAction)stopSlideShow:(id)sender {
 
-    //Stop slider view
+    // Stop slider view.
     [self.imageSliderScrollView stopAutoSlideShow];
 }
 
