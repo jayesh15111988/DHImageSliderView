@@ -23,6 +23,7 @@
 @property (nonatomic, assign) BOOL isVerticalSliding;
 @property (nonatomic, strong) UIView* bulletButtonsView;
 @property (nonatomic, assign) NSInteger previouslySelectedButtonTagNumber;
+@property (nonatomic, strong) UIImageView* movingBulletView;
 
 // Height and width of Frame.
 @property (nonatomic, assign) float frameWidth;
@@ -63,7 +64,6 @@
 
         UIImageView* imageViewToAddToSliderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:individualSliderImage]];
         [imageViewToAddToSliderView sizeToFit];
-        NSLog(@"%ld sliding content mode", self.slidingImagesContentMode);
         imageViewToAddToSliderView.contentMode = self.slidingImagesContentMode;
         // Horizontal bouncing - No for vertical scrolling and vice versa.
 
@@ -169,14 +169,20 @@
 
 - (void)makeTransitionToOffset:(float)offsetSlideValue {
 
+    
+    [(UIButton*)[self.bulletButtonsView viewWithTag:self.previouslySelectedButtonTagNumber] setBackgroundImage:[UIImage imageNamed:self.bulletDeselectedImage] forState:UIControlStateNormal];
+    
     [UIView transitionWithView:nil
                       duration:self.slideDuration
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         self.contentOffset =self.isVerticalSliding? CGPointMake(0,offsetSlideValue):CGPointMake(offsetSlideValue,0);
-                        [self updateBulletPointsWithSelectedButton:(UIButton*)[self.bulletButtonsView viewWithTag:self.currentSlideNumber + 1]];
+                        
+                        self.movingBulletView.frame = CGRectMake(10 + _currentSlideNumber * BULLET_SPACING, self.movingBulletView.frame.origin.y, self.movingBulletView.frame.size.width, self.movingBulletView.frame.size.height);
                     }
-                    completion:NULL];
+                    completion:^(BOOL finished) {
+                        [self updateBulletPointsWithSelectedButton:(UIButton*)[self.bulletButtonsView viewWithTag:self.currentSlideNumber + 1]];
+                    }];
 }
 
 // For auto slide show.
@@ -211,7 +217,7 @@
     if (CGSizeEqualToSize(CGSizeZero, self.bulletImageSize)) {
         self.bulletImageSize = CGSizeMake(BULLET_IMAGE_SIZE, BULLET_IMAGE_SIZE);
     }
-
+    
     CGFloat bulletButtonXPosition = 10;
     for (NSInteger i = 0; i < self.numberOfImagesOnSliderView; i++) {
         UIButton* imageSelectorButton = [[UIButton alloc] initWithFrame:CGRectMake (bulletButtonXPosition, 13, self.bulletImageSize.width, self.bulletImageSize.height)];
@@ -221,6 +227,11 @@
         [imageSelectorButton addTarget:self action:@selector (bulletButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.bulletButtonsView addSubview:imageSelectorButton];
     }
+    
+    self.movingBulletView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 13, self.bulletImageSize.width, self.bulletImageSize.height)];
+    self.movingBulletView.image = [UIImage imageNamed:self.bulletSelectedImage];
+    [self.bulletButtonsView addSubview:self.movingBulletView];
+    
     return self.bulletButtonsView;
 }
 
@@ -229,7 +240,6 @@
 }
 
 - (void)updateBulletPointsWithSelectedButton:(UIButton*)clickedButton {
-    [(UIButton*)[self.bulletButtonsView viewWithTag:self.previouslySelectedButtonTagNumber] setBackgroundImage:[UIImage imageNamed:self.bulletDeselectedImage] forState:UIControlStateNormal];
     [clickedButton setBackgroundImage:[UIImage imageNamed:self.bulletSelectedImage] forState:UIControlStateNormal];
     self.previouslySelectedButtonTagNumber = clickedButton.tag;
 }

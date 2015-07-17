@@ -40,7 +40,7 @@
     self.imageSliderScrollView.imageSlideDirection = Default;
     self.imageSliderScrollView.slidingImagesContentMode = UIViewContentModeScaleAspectFill;
     //Once you swipe, it makes quick transition to other slide
-    self.imageSliderScrollView.isContinuousSwipe = YES;
+    self.imageSliderScrollView.isContinuousSwipe = NO;
     
 
     //You may do it - If not it will just grab default images from project source.Here goes the fancy stuff you can put
