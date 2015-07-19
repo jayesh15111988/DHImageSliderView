@@ -66,7 +66,13 @@
 
     //This is whole collection of available images that will be shown on current view on screen
     [self.imageSliderScrollView initAndSetSliderImagesCollection:imagesCollectionToDisplayOnslider];
-    [self.view addSubview:[self.imageSliderScrollView bulletPointsViewForImageSlider]];
+    UIView* bulletView = [self.imageSliderScrollView bulletPointsViewForImageSlider];
+    bulletView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:bulletView];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_imageSliderScrollView]-15-[bulletView(bulletViewHeight)]" options:kNilOptions metrics:@{@"bulletViewHeight": @(bulletView.frame.size.height)} views:NSDictionaryOfVariableBindings(_imageSliderScrollView, bulletView)]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bulletView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:bulletView.frame.size.width]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bulletView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
 }
 
 #pragma mark scrollview delegate methods
