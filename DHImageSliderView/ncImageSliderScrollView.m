@@ -24,10 +24,11 @@
 @property (nonatomic, strong) UIView* bulletButtonsView;
 @property (nonatomic, assign) NSInteger previouslySelectedButtonTagNumber;
 @property (nonatomic, strong) UIImageView* movingBulletView;
+@property (nonatomic, strong) NSMutableArray* slidingImageviewsCollection;
 
 // Height and width of Frame.
-@property (nonatomic, assign) float frameWidth;
-@property (nonatomic, assign) float frameHeight;
+@property (nonatomic, assign) CGFloat frameWidth;
+@property (nonatomic, assign) CGFloat frameHeight;
 
 @end
 
@@ -40,7 +41,8 @@
     self.showsVerticalScrollIndicator = NO;
 
     // These are collection of images given to the view.
-    self.imagesCollection = [NSMutableArray array];
+    self.imagesCollection = [NSMutableArray new];
+    self.slidingImageviewsCollection = [NSMutableArray new];
 
     // Set offset to origin.
     self.offsetToAdjustImageSliderTo = 0.0;
@@ -56,33 +58,8 @@
     // Image dimension offset each time view is scrolled.
     self.lengthOfDesiredImageDimension = (self.isVerticalSliding) ? self.frame.size.height : self.frame.size.width;
 
-    // Original position of an image.
-    CGFloat positionOfImage = 0.0f;
-    self.numberOfImagesOnSliderView = self.sliderImagesCollection.count;
-    // Add input images to scroll view one by one.
-    for (NSString* individualSliderImage in self.sliderImagesCollection) {
-
-        UIImageView* imageViewToAddToSliderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:individualSliderImage]];
-        [imageViewToAddToSliderView sizeToFit];
-        imageViewToAddToSliderView.contentMode = self.slidingImagesContentMode;
-        // Horizontal bouncing - No for vertical scrolling and vice versa.
-
-        self.alwaysBounceHorizontal = !self.isVerticalSliding;
-        self.alwaysBounceVertical = self.isVerticalSliding;
-
-        if (self.isVerticalSliding) {
-            imageViewToAddToSliderView.frame = CGRectMake (imageViewToAddToSliderView.frame.origin.x, positionOfImage, self.sliderImageFrameSize.width, self.sliderImageFrameSize.height);
-        } else {
-
-            imageViewToAddToSliderView.frame = CGRectMake (positionOfImage, imageViewToAddToSliderView.frame.origin.y, self.sliderImageFrameSize.width, self.sliderImageFrameSize.height);
-        }
-        positionOfImage += self.lengthOfDesiredImageDimension;
-        [self addSubview:imageViewToAddToSliderView];
-    }
-
-    // Set appropriate content size to allow smooth scrolling between max and min images.
-    self.contentSize = self.isVerticalSliding ? CGSizeMake (0, self.numberOfImagesOnSliderView * self.frameHeight) : CGSizeMake (self.numberOfImagesOnSliderView * self.frameWidth, 0);
-
+    [self adjustScrollViewContentAndIndividualImageSize];
+    
     // Customzing next and previous images arrows on screen. If none given, takes default images from project source.
 
     if (self.isVerticalSliding) {
@@ -119,6 +96,64 @@
         self.scrollEnabled = NO;
         [self setupGestureRecognizerForImageSliderView];
     }
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+}
+
+- (void) orientationChanged:(NSNotification *)note {
+    UIDevice * device = note.object;
+    switch(device.orientation) {
+        case UIDeviceOrientationPortrait:
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            break;
+        default:
+            break;
+    };
+    self.lengthOfDesiredImageDimension = (self.isVerticalSliding) ? self.frame.size.height : self.frame.size.width;
+    self.sliderImageFrameSize = self.frame.size;
+    [self adjustArrowPositions];
+    [self adjustScrollViewContentAndIndividualImageSize];
+    [self slideToImageWithSequence:self.currentSlideNumber];
+}
+
+- (void)adjustScrollViewContentAndIndividualImageSize {
+    // Original position of an image.
+    CGFloat positionOfImage = 0.0f;
+    NSInteger index = 0;
+    self.numberOfImagesOnSliderView = self.slidingImageviewsCollection.count;
+    // Add input images to scroll view one by one.
+    for (NSString* individualSliderImage in self.sliderImagesCollection) {
+        UIImageView* imageViewToAddToSliderView;
+        
+        if (self.numberOfImagesOnSliderView == 0) {
+            imageViewToAddToSliderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:individualSliderImage]];
+            [imageViewToAddToSliderView sizeToFit];
+            imageViewToAddToSliderView.contentMode = self.slidingImagesContentMode;
+            // Horizontal bouncing - No for vertical scrolling and vice versa.
+            self.alwaysBounceHorizontal = !self.isVerticalSliding;
+            self.alwaysBounceVertical = self.isVerticalSliding;
+            [self addSubview:imageViewToAddToSliderView];
+            [self.slidingImageviewsCollection addObject:imageViewToAddToSliderView];
+        } else {
+            imageViewToAddToSliderView = self.slidingImageviewsCollection[index];
+        }
+        
+        if (self.isVerticalSliding) {
+            imageViewToAddToSliderView.frame = CGRectMake (imageViewToAddToSliderView.frame.origin.x, positionOfImage, self.sliderImageFrameSize.width, self.sliderImageFrameSize.height);
+        } else {
+            
+            imageViewToAddToSliderView.frame = CGRectMake (positionOfImage, imageViewToAddToSliderView.frame.origin.y, self.sliderImageFrameSize.width, self.sliderImageFrameSize.height);
+        }
+        positionOfImage += self.lengthOfDesiredImageDimension;
+        index++;
+    }
+    
+    self.numberOfImagesOnSliderView = index;
+    // Set appropriate content size to allow smooth scrolling between max and min images.
+    self.contentSize = self.isVerticalSliding ? CGSizeMake (0, index * self.frameHeight) : CGSizeMake (index * self.frameWidth, 0);
+
 }
 
 - (IBAction)showPreviousImage:(id)sender {
@@ -154,10 +189,14 @@
     [self makeTransitionToOffset:self.lengthOfDesiredImageDimension * imageSequence];
 }
 - (void)adjustedScrollViewXPositionForOffset {
-
-    self.currentSlideNumber = (NSInteger)round (((self.isVerticalSliding) ? self.contentOffset.y : self.contentOffset.x) / self.lengthOfDesiredImageDimension);
+    
+    _currentSlideNumber = (NSInteger)round (((self.isVerticalSliding) ? self.contentOffset.y : self.contentOffset.x) / self.lengthOfDesiredImageDimension);
     self.offsetToAdjustImageSliderTo = self.currentSlideNumber * self.lengthOfDesiredImageDimension;
 
+    [self adjustArrowPositions];
+}
+
+- (void)adjustArrowPositions {
     if (self.isVerticalSliding) {
         self.backArrow.frame = CGRectMake (self.backArrow.frame.origin.x, self.contentOffset.y + 20, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height);
         self.frontArrow.frame = CGRectMake (self.frontArrow.frame.origin.x, self.contentOffset.y + self.frame.size.height - 50, self.previousNextButtonsFrameSize.width, self.previousNextButtonsFrameSize.height);
@@ -167,7 +206,7 @@
     }
 }
 
-- (void)makeTransitionToOffset:(float)offsetSlideValue {
+- (void)makeTransitionToOffset:(CGFloat)offsetSlideValue {
 
     
     [UIView transitionWithView:nil

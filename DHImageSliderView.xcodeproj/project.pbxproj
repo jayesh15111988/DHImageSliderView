@@ -20,7 +20,6 @@
 		CB0B9AC81988431600A31743 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB0B9AAA1988431600A31743 /* UIKit.framework */; };
 		CB0B9AD01988431600A31743 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB0B9ACE1988431600A31743 /* InfoPlist.strings */; };
 		CB0B9AD21988431600A31743 /* DHImageSliderViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0B9AD11988431600A31743 /* DHImageSliderViewTests.m */; };
-		CB0B9ADD1988435900A31743 /* DHMainSliderStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0B9ADC1988435900A31743 /* DHMainSliderStoryboard.storyboard */; };
 		CB0B9AE1198843ED00A31743 /* DHPrimaryImageSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0B9AE0198843ED00A31743 /* DHPrimaryImageSliderViewController.m */; };
 		CB0B9AE51988457900A31743 /* ncImageSliderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0B9AE41988457900A31743 /* ncImageSliderScrollView.m */; };
 		CB0B9AF1198845D700A31743 /* DH_img_main_1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB0B9AE9198845D700A31743 /* DH_img_main_1.png */; };
@@ -67,7 +66,6 @@
 		CB0B9ACD1988431600A31743 /* DHImageSliderViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DHImageSliderViewTests-Info.plist"; sourceTree = "<group>"; };
 		CB0B9ACF1988431600A31743 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB0B9AD11988431600A31743 /* DHImageSliderViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DHImageSliderViewTests.m; sourceTree = "<group>"; };
-		CB0B9ADC1988435900A31743 /* DHMainSliderStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DHMainSliderStoryboard.storyboard; sourceTree = "<group>"; };
 		CB0B9ADF198843ED00A31743 /* DHPrimaryImageSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHPrimaryImageSliderViewController.h; sourceTree = "<group>"; };
 		CB0B9AE0198843ED00A31743 /* DHPrimaryImageSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHPrimaryImageSliderViewController.m; sourceTree = "<group>"; };
 		CB0B9AE31988457900A31743 /* ncImageSliderScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ncImageSliderScrollView.h; sourceTree = "<group>"; };
@@ -222,7 +220,6 @@
 		CB0B9ADB1988433600A31743 /* UI Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				CB0B9ADC1988435900A31743 /* DHMainSliderStoryboard.storyboard */,
 				38FB6E591B23BF6400FF0B03 /* DHMainSliderStoryboard_iPhone.storyboard */,
 			);
 			path = "UI Storyboard";
@@ -344,7 +341,6 @@
 				CB0B9AF6198845D700A31743 /* DH_img_main_6.png in Resources */,
 				CB0B9AF8198845D700A31743 /* DH_img_main_8.png in Resources */,
 				CB0B9AF5198845D700A31743 /* DH_img_main_5.png in Resources */,
-				CB0B9ADD1988435900A31743 /* DHMainSliderStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
