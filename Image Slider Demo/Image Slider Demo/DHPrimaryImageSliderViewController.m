@@ -37,7 +37,7 @@
     //Animation duration while making transition
     self.imageSliderScrollView.bulletImageSize = CGSizeMake(20, 20);
     self.imageSliderScrollView.slideDuration = 0.5f;
-    self.imageSliderScrollView.imageSlideDirection = Default;
+    self.imageSliderScrollView.imageSlideDirection = SlideDirectionHorizontal;
     self.imageSliderScrollView.slidingImagesContentMode = UIViewContentModeScaleAspectFill;
     //Once you swipe, it makes quick transition to other slide
     self.imageSliderScrollView.isContinuousSwipe = NO;
@@ -53,14 +53,14 @@
     self.imageSliderScrollView.bulletDeselectedImage = @"DH_gray_page_indicator.png";
     
     self.imageSliderScrollView.previousNextButtonsFrameSize = CGSizeMake(22, 33);
-
+    self.imageSliderScrollView.transitionStyle = TransitionStyleFade;
+    
     NSInteger numberOfTotalImages = NUMBER_OF_IMAGES_ON_SLIDER_VIEW;
 
     //We collect images and assign to array of image slider class
 
     NSMutableArray* imagesCollectionToDisplayOnslider = [NSMutableArray array];
     while (numberOfTotalImages) {
-
         [imagesCollectionToDisplayOnslider addObject:[NSString stringWithFormat:@"DH_img_main_%ld.png", (long)numberOfTotalImages--]];
     }
 

@@ -39,7 +39,13 @@
                                 <rect key="frame" x="32" y="100" width="256" height="175"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="175" id="HAU-kg-giv"/>
+                                    <constraint firstAttribute="width" constant="256" id="HAz-OI-K8j"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="HAz-OI-K8j"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="Ifp-qk-Oit" id="prY-N5-xeX"/>
                                 </connections>
@@ -48,9 +54,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tMc-Yc-E4O" firstAttribute="top" secondItem="oEa-c1-4tK" secondAttribute="bottom" constant="36" id="9tm-mU-y7L"/>
+                            <constraint firstAttribute="centerX" secondItem="tMc-Yc-E4O" secondAttribute="centerX" id="PMj-C0-HjQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tMc-Yc-E4O" secondAttribute="trailing" constant="16" id="SJ9-et-TTY"/>
                             <constraint firstItem="tMc-Yc-E4O" firstAttribute="leading" secondItem="UXp-I0-c82" secondAttribute="leadingMargin" constant="16" id="a4N-Eq-aMy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tMc-Yc-E4O" secondAttribute="trailing" constant="16" id="twv-UV-gHM"/>
+                            <constraint firstItem="tMc-Yc-E4O" firstAttribute="leading" secondItem="UXp-I0-c82" secondAttribute="leadingMargin" constant="16" id="ugk-Qu-URL"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="PMj-C0-HjQ"/>
+                                <exclude reference="SJ9-et-TTY"/>
+                                <exclude reference="a4N-Eq-aMy"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="vDg-pn-3WV"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

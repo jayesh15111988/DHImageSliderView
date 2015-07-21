@@ -9,7 +9,7 @@
 #import "ncImageSliderScrollView.h"
 
 #define BULLET_IMAGE_SIZE 20
-#define BULLET_SPACING 40
+#define BULLET_SPACING 30
 
 @interface ncImageSliderScrollView ()
 
@@ -53,7 +53,7 @@
     self.frameHeight = self.frame.size.height;
 
     // What should be direction of image scroll?.
-    self.isVerticalSliding = (self.imageSlideDirection == Vertical);
+    self.isVerticalSliding = (self.imageSlideDirection == SlideDirectionVertical);
 
     // Image dimension offset each time view is scrolled.
     self.lengthOfDesiredImageDimension = (self.isVerticalSliding) ? self.frame.size.height : self.frame.size.width;
@@ -61,9 +61,7 @@
     [self adjustScrollViewContentAndIndividualImageSize];
     
     // Customzing next and previous images arrows on screen. If none given, takes default images from project source.
-
     if (self.isVerticalSliding) {
-
         if (!self.backArrowImage || !self.nextArrowImage) {
             self.backArrowImage = @"DH_btn_caret_white_top_vertical.png";
             self.nextArrowImage = @"DH_btn_caret_white_bottom_vertical.png";
@@ -96,7 +94,6 @@
         self.scrollEnabled = NO;
         [self setupGestureRecognizerForImageSliderView];
     }
-    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
 }
@@ -149,7 +146,6 @@
         positionOfImage += self.lengthOfDesiredImageDimension;
         index++;
     }
-    
     self.numberOfImagesOnSliderView = index;
     // Set appropriate content size to allow smooth scrolling between max and min images.
     self.contentSize = self.isVerticalSliding ? CGSizeMake (0, index * self.frameHeight) : CGSizeMake (index * self.frameWidth, 0);
@@ -157,7 +153,6 @@
 }
 
 - (IBAction)showPreviousImage:(id)sender {
-
     if (self.offsetToAdjustImageSliderTo) {
         // Image other than first one.
         [self makeTransitionToOffset:self.offsetToAdjustImageSliderTo - self.lengthOfDesiredImageDimension];
@@ -168,7 +163,6 @@
 }
 
 - (IBAction)showNextImage:(id)sender {
-
     if (self.offsetToAdjustImageSliderTo < ((self.numberOfImagesOnSliderView - 1) * self.lengthOfDesiredImageDimension)) {
         // Any image other than last one on the view.
         [self makeTransitionToOffset:self.offsetToAdjustImageSliderTo + self.lengthOfDesiredImageDimension];
@@ -188,11 +182,10 @@
     self.currentSlideNumber = imageSequence;
     [self makeTransitionToOffset:self.lengthOfDesiredImageDimension * imageSequence];
 }
+
 - (void)adjustedScrollViewXPositionForOffset {
-    
     _currentSlideNumber = (NSInteger)round (((self.isVerticalSliding) ? self.contentOffset.y : self.contentOffset.x) / self.lengthOfDesiredImageDimension);
     self.offsetToAdjustImageSliderTo = self.currentSlideNumber * self.lengthOfDesiredImageDimension;
-
     [self adjustArrowPositions];
 }
 
@@ -208,23 +201,37 @@
 
 - (void)makeTransitionToOffset:(CGFloat)offsetSlideValue {
 
-    
-    [UIView transitionWithView:nil
-                      duration:self.slideDuration
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:^{
-                        self.contentOffset =self.isVerticalSliding? CGPointMake(0,offsetSlideValue):CGPointMake(offsetSlideValue,0);
-                        
-                        self.movingBulletView.frame = CGRectMake(10 + _currentSlideNumber * BULLET_SPACING, self.movingBulletView.frame.origin.y, self.movingBulletView.frame.size.width, self.movingBulletView.frame.size.height);
-                    }
-                    completion:^(BOOL finished) {
-                        
-                    }];
+    // We now in the version 1.6 offer two ways to make slide transitions - Scroll view or fade in view to allow slider to make transition from one image to another.
+    if (self.transitionStyle == TransitionStyleScroll) {
+        [UIView transitionWithView:nil
+                          duration:self.slideDuration
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.contentOffset =self.isVerticalSliding? CGPointMake(0,offsetSlideValue):CGPointMake(offsetSlideValue,0);
+                            self.movingBulletView.frame = CGRectMake(10 + _currentSlideNumber * BULLET_SPACING, self.movingBulletView.frame.origin.y, self.movingBulletView.frame.size.width, self.movingBulletView.frame.size.height);
+                        }
+                        completion:NULL];
+    } else if (self.transitionStyle == TransitionStyleFade) {
+        [UIView animateKeyframesWithDuration:self.slideDuration delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
+        
+            [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{
+                self.alpha = 0.0;
+            }];
+        
+            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0 animations:^{
+                self.contentOffset =self.isVerticalSliding? CGPointMake(0,offsetSlideValue):CGPointMake(offsetSlideValue,0);
+            }];
+        
+            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
+                self.movingBulletView.frame = CGRectMake(10 + _currentSlideNumber * BULLET_SPACING, self.movingBulletView.frame.origin.y, self.movingBulletView.frame.size.width, self.movingBulletView.frame.size.height);
+                self.alpha = 1.0;
+            }];
+        } completion:NULL];
+    }
 }
 
 // For auto slide show.
 - (void)startAutoSlideShowWithInterval:(NSTimeInterval)autoSlideShowInterval {
-
     if (![self.pulseTimer isValid]) {
         self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:autoSlideShowInterval target:self selector:@selector (showNextImage:) userInfo:nil repeats:YES];
         [self.pulseTimer fire];
@@ -241,16 +248,14 @@
 // Bullet point view which will allow user to jump from one image to another.
 
 - (UIView*)bulletPointsViewForImageSlider {
+    
     // This is the collection of bullet points to make random jumps from one image to another.
     // User do not wish to initialize this view on his own - We will take care of it.
 
     NSInteger maximumWidthOfBulletView = BULLET_SPACING * self.numberOfImagesOnSliderView;
     CGRect customFrameForBulletView = CGRectMake ((self.frame.origin.x + (self.frame.size.width / 2) - (maximumWidthOfBulletView / 2)), self.frame.origin.y + 20 + self.frame.size.height, maximumWidthOfBulletView, 50);
-
     self.bulletButtonsView = [[UIView alloc] initWithFrame:customFrameForBulletView];
-
     [self.bulletButtonsView setBackgroundColor:[UIColor whiteColor]];
-
     if (CGSizeEqualToSize(CGSizeZero, self.bulletImageSize)) {
         self.bulletImageSize = CGSizeMake(BULLET_IMAGE_SIZE, BULLET_IMAGE_SIZE);
     }
@@ -264,11 +269,9 @@
         [imageSelectorButton addTarget:self action:@selector (bulletButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.bulletButtonsView addSubview:imageSelectorButton];
     }
-    
     self.movingBulletView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 13, self.bulletImageSize.width, self.bulletImageSize.height)];
     self.movingBulletView.image = [UIImage imageNamed:self.bulletSelectedImage];
     [self.bulletButtonsView addSubview:self.movingBulletView];
-    
     return self.bulletButtonsView;
 }
 
@@ -286,14 +289,12 @@
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft || swipe.direction == UISwipeGestureRecognizerDirectionUp) {
         self.currentSlideNumber = (++self.currentSlideNumber) % self.numberOfImagesOnSliderView;
     }
-
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight || swipe.direction == UISwipeGestureRecognizerDirectionDown) {
 
         self.currentSlideNumber = (--self.currentSlideNumber) % self.numberOfImagesOnSliderView;
 
         self.currentSlideNumber = (self.currentSlideNumber < 0) ? (self.currentSlideNumber + self.numberOfImagesOnSliderView) : self.currentSlideNumber;
     }
-
     [self slideToImageWithSequence:self.currentSlideNumber];
 }
 
@@ -301,19 +302,18 @@
 
     // Add gesture Recognizers to image slide view. Apparently delegate didScrollView does not seem to work smoothly.
     // User cannot swipe the view manually. If can only be swiped through gesture recognizer and provided bullet buttons.
-
     UISwipeGestureRecognizer* swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector (handleSwipe:)];
     UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector (handleSwipe:)];
-
+    
     // Setting the swipe direction.
-    if (self.imageSlideDirection == Vertical) {
+    if (self.imageSlideDirection == SlideDirectionVertical) {
         [swipeLeft setDirection:UISwipeGestureRecognizerDirectionUp];
         [swipeRight setDirection:UISwipeGestureRecognizerDirectionDown];
     } else {
         [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
         [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
     }
-
+    
     // Adding the swipe gesture on image view.
     [self addGestureRecognizer:swipeLeft];
     [self addGestureRecognizer:swipeRight];

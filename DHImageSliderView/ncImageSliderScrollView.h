@@ -10,10 +10,14 @@
 
 // We have third type as default which zeroes in on Horizontal scrolling.
 typedef enum {
-    Horizontal,
-    Vertical,
-    Default
+    SlideDirectionHorizontal,
+    SlideDirectionVertical
 } SlideDirection;
+
+typedef enum {
+    TransitionStyleScroll,
+    TransitionStyleFade
+} TransitionStyle;
 
 @interface ncImageSliderScrollView : UIScrollView
 
@@ -32,6 +36,7 @@ typedef enum {
 
 // Which direction view should scroll? - Vertical or Horizontal.
 @property (nonatomic, assign) SlideDirection imageSlideDirection;
+@property (nonatomic, assign) TransitionStyle transitionStyle;
 
 // Continuous or step swipe when user swipes his fingers over the screen.
 // Default is step swip mode.
@@ -41,9 +46,8 @@ typedef enum {
 - (void)initAndSetSliderImagesCollection:(NSArray*)sliderImageNamesCollection;
 - (void)adjustedScrollViewXPositionForOffset;
 - (void)adjustToCalculatedOffset;
-
 - (void)startAutoSlideShowWithInterval:(NSTimeInterval)autoSlideShowInterval;
 - (void)stopAutoSlideShow;
-
 - (UIView*)bulletPointsViewForImageSlider;
+
 @end

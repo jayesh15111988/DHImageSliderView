@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'DHImageSliderView'
-  s.version       = '1.6'
+  s.version       = '1.7'
   s.license       = 'MIT'
   s.summary       = 'DHImage Slider'
   s.homepage      = 'https://github.com/jayesh15111988'
