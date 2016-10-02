@@ -2,7 +2,7 @@ See the sample project in DHImageSliderView/Demo for uses.
 
 Use Cocoapods to integrate into your projects:
 
-```pod 'DHImageSliderView', :git => 'git@github.com:jayesh15111988/DHImageSliderView.git' , :branch => 'master'```
+```pod 'DHImageSliderView', :git => 'https://github.com/jayesh15111988/DHImageSliderView.git' , :branch => 'master'```
 
 Important Note: Please go through Wiki ```(https://github.com/jayesh15111988/DHImageSliderView/wiki/Wiki-Page-for-Image-Slider)```
 to know more about how to use this library
